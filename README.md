@@ -1,64 +1,123 @@
-SAML-tracer
-===========
+# Auth0 CIAM and SSO Protocol Lab
 
-SAML-tracer is a browser extension, available from the [Firefox](https://addons.mozilla.org/en-US/firefox/addon/saml-tracer/) and [Chrome](https://chromewebstore.google.com/detail/mpdajninpobndbfcldcmbpnnbhibjmch)
-extension stores, that aims to make debugging of SAML- and 
-WS-Federation-communication between websites easier. 
-It is a request logger that in addition to showing normal requests, 
-also highlights and decodes SAML messages that are transmitted.
+## Overview
+
+This hands-on Customer Identity and Access Management (CIAM) lab demonstrates how Auth0 functions as an identity provider for SAML 2.0 and OpenID Connect authentication flows.
+
+I configured and tested a SAML web application, inspected XML assertions and identity attributes, completed an OIDC Authorization Code flow, and decoded a JSON Web Token (JWT) to analyze its header, payload, and claims.
+
+> This repository contains sanitized lab documentation only. Client secrets, authorization codes, access tokens, session data, and personally identifiable information are not included.
+
+## Project Objectives
+
+- Configure an Auth0 tenant as an identity provider
+- Test SAML 2.0 authentication with a service provider
+- Inspect SAML assertions and mapped identity attributes
+- Execute an OIDC Authorization Code flow
+- Examine OAuth 2.0 authorization responses and tokens
+- Decode a JWT and identify standard claims
+- Compare SAML and OIDC protocol behavior
+
+## Technologies
+
+- Auth0
+- SAML 2.0
+- OpenID Connect
+- OAuth 2.0 Authorization Code flow
+- JSON Web Tokens
+- SAML-tracer
+- SAML testing service provider
+- OIDC Debugger
+- JWT.io
+
+## Architecture
+
+```mermaid
+flowchart LR
+    U[Customer] --> A[Application]
+    A --> I[Auth0 Identity Provider]
+    I -->|SAML assertion| S[SAML Service Provider]
+    I -->|Authorization code| O[OIDC Client]
+    O -->|Token exchange| I
+    I -->|ID and access tokens| O
+```
+
+## SAML 2.0 Testing
+
+I configured a SAML application in Auth0 and used a SAML testing service provider to initiate authentication. After successful sign-in, I inspected the resulting assertion and reviewed identity attributes supplied by Auth0.
+
+### Validation
+
+- Authentication was redirected to Auth0.
+- Auth0 returned a SAML response to the service provider.
+- The assertion contained mapped user attributes.
+- The service provider accepted the response and created an authenticated session.
+
+### What I Learned
+
+SAML uses XML-based assertions to communicate authentication and attribute information between an identity provider and a service provider. The browser carries the signed response to the service provider, which validates it before granting access.
+
+## OIDC Authorization Code Flow
+
+I configured an OIDC application and used an OIDC debugger to initiate an Authorization Code flow. After authentication, Auth0 returned an authorization code that the client exchanged for tokens.
+
+### Validation
+
+- The authorization request included a redirect URI, client identifier, scope, state, and response type.
+- Auth0 authenticated the user and returned an authorization code.
+- The client received token data after the code exchange.
+- The returned state value supported request/response correlation.
 
 
-Using SAML-tracer
------------------
+## JWT Inspection
 
-SAML-tracer is activated by clicking its icon in the browser toolbar.
-It can be alternatively started by pressing <kbd>ALT</kbd> +
-<kbd>SHIFT</kbd> + <kbd>S</kbd> on the keyboard.
+I decoded a lab JWT and reviewed its three components:
 
-Once it is activated, you will get a window that shows all requests,
-and the data included in them. It also shows response headers.
-Messages including SAML data are highlighted with a SAML logo at the
-right side of the request list. Those containing WS-Federation data
-are highlighted with a WS-Fed logo respectively.
+1. Header — identified the token type and signing algorithm.
+2. Payload — reviewed identity and token-lifetime claims.
+3. Signature — understood how a relying party verifies token integrity.
 
-Selecting a request gives you up to three tabs:
+Common claims reviewed included:
 
-* HTTP: A quick overview over the request, with request and response
-  headers.
-* Parameters: GET and POST parameters included in the request.
-* SAML: Decoded SAML message found in the request.
+- `sub` — unique subject identifier
+- `iat` — issued-at time
+- `exp` — expiration time
+- `iss` — token issuer
+- `aud` — intended audience
+
+Decoding a JWT does not validate it. A production application must verify the signature, issuer, audience, expiration, and other relevant claims before trusting the token.
+
+## SAML and OIDC Comparison
+
+| Area | SAML 2.0 | OpenID Connect |
+| --- | --- | --- |
+| Primary format | XML assertion | JSON/JWT |
+| Common use | Enterprise browser SSO | Modern web, mobile, and API authentication |
+| Identity parties | Identity Provider and Service Provider | OpenID Provider and Relying Party |
+| Built on | SAML standard | OAuth 2.0 |
+| Identity artifact | SAML assertion | ID token |
+
+## Security Considerations
+
+- Never expose client secrets, authorization codes, access tokens, refresh tokens, or session cookies.
+- Use exact redirect URI allowlists.
+- Validate token signatures and claims.
+- Use the `state` parameter to reduce request-forgery risk.
+- Use PKCE for public clients and modern Authorization Code flows.
+- Enforce HTTPS in production.
+- Avoid placing live tokens into public decoding tools.
+- Apply least privilege when defining scopes and claims.
+
+## Evidence
+
+The sanitized evidence for this project will demonstrate:
+
+1. Successful SAML authentication and mapped user attributes
+2. Successful OIDC Authorization Code flow
+3. Decoded JWT structure and example claims
+
+## Skills Demonstrated
+
+CIAM, Auth0, SSO, SAML 2.0, OIDC, OAuth 2.0, JWT analysis, claims mapping, authentication troubleshooting, protocol validation, and secure technical documentation.
 
 
-Developing SAML-tracer
-----------------------
-
-To make changes to SAML-tracer, you should start by cloning the Git
-repository from:
-
-  https://github.com/SimpleSAMLphp/SAML-tracer/
-
-You can now modify and extend SAML-tracer. To test your changes, you 
-can debug the extension as described here for Firefox:
-
-  https://developer.mozilla.org/Add-ons/WebExtensions/Debugging
-
-After modifying the source code, you need to commit your changes to
-your local Git repository.
-
-Browser support
----------------
-
-This extension is available for Firefox (see Mozilla extension) and for Chrome & Edge (see Chrome extension).
-
-License
--------
-
-SAML-tracer is released under the 2-clause BSD license. See the
-[LICENSE](LICENSE)-file for more information.
-
-
-Attribution
------------
-
-SAML-tracer makes use of open source libraries.
-See [here](attribution.md) for more details.
