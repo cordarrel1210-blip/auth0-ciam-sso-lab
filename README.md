@@ -132,7 +132,7 @@ The SAML testing tool displays identity attributes returned by Auth0 after succe
 
 The OIDC Debugger confirms successful completion of the Authorization Code flow. The state, authorization code, and access token have been redacted.
 
-![Sanitized OIDC Authorization Code flow](images/Screenshot%202026-06-02%20125810.png)
+![JWT structure and claims analysis](images/Screenshot%202026-06-02%20130050.png)
 
 ### JWT Structure and Claims Analysis
 
