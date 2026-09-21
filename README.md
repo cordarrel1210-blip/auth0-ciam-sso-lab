@@ -132,13 +132,13 @@ The SAML testing tool displays identity attributes returned by Auth0 after succe
 
 The OIDC Debugger confirms successful completion of the Authorization Code flow. The state, authorization code, and access token have been redacted.
 
-![JWT structure and claims analysis](images/Screenshot%202026-06-02%20130050.png)
+![Sanitized OIDC Authorization Code flow](images/Screenshot%202026-06-02%20125810.png)
 
 ### JWT Structure and Claims Analysis
 
 I used JWT.io to examine the structure of a JSON Web Token, including its encoded header, payload, algorithm, and identity claims. This screenshot uses sample data and does not contain a production token or secret.
 
-![JWT structure and claims analysis](images/Screenshot%2026-06-02%130050.png)
+![JWT structure and claims analysis](images/Screenshot%202026-06-02%20130050.png)
 
 
 
