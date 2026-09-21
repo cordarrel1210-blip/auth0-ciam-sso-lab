@@ -120,4 +120,22 @@ The sanitized evidence for this project will demonstrate:
 
 CIAM, Auth0, SSO, SAML 2.0, OIDC, OAuth 2.0, JWT analysis, claims mapping, authentication troubleshooting, protocol validation, and secure technical documentation.
 
+## Lab Evidence
+
+### SAML 2.0 Authentication
+
+The SAML testing tool displays identity attributes returned by Auth0 after successful authentication. Sensitive values have been redacted.
+
+![Sanitized SAML authentication results](images/Screenshot%202026-06-02%20124959.png)
+
+### OpenID Connect Authorization Code Flow
+
+The OIDC Debugger confirms successful completion of the Authorization Code flow. The state, authorization code, and access token have been redacted.
+### JWT Structure and Claims Analysis
+
+I used JWT.io to examine the structure of a JSON Web Token, including its encoded header, payload, algorithm, and identity claims. This screenshot uses sample data and does not contain a production token or secret.
+
+![JWT structure and claims analysis](images/Screenshot%2026-06-02%130050.png)
+![Sanitized OIDC Authorization Code flow](images/Screenshot%202026-06-02%20125810.png)
+
 
