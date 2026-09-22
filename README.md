@@ -110,13 +110,13 @@ Decoding a JWT does not validate it. A production application must verify the si
 
 ## Evidence
 
-The sanitized evidence for this project will demonstrate:
+The evidence for this project will demonstrate:
 
 1. Successful SAML authentication and mapped user attributes
 2. Successful OIDC Authorization Code flow
 3. Decoded JWT structure and example claims
 
-## Skills Demonstrated
+## Skills
 
 CIAM, Auth0, SSO, SAML 2.0, OIDC, OAuth 2.0, JWT analysis, claims mapping, authentication troubleshooting, protocol validation, and secure technical documentation.
 
